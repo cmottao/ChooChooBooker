@@ -5,7 +5,7 @@ from business.Reservation import Reservation
 from business.LeadPassenger import LeadPassenger
 
 class ReservationReader:
-    '''Clase for reading the reservations file.'''
+    '''Class for reading the reservations file.'''
 
     @staticmethod
     def read_reservations():
