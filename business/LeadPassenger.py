@@ -3,16 +3,14 @@ from .Passenger import Passenger
 class LeadPassenger(Passenger):
     '''Represents an object of type Lead Passenger.'''
 
-    #Constructor method
-    def __init__(self, name, surname, id, phone, email):
-        '''Initializes an object of type Lead Passenger.'''
-
-        super().__init__(name, surname)
+    # Constructor method
+    def __init__(self, name, id, phone, email):
+        super().__init__(name)
         self._id = id
         self._phone = phone
         self._email = email
 
-    #Getters methods
+    # Getters methods
     def get_id(self):
         return self._id
 
