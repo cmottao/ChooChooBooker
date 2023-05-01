@@ -1,4 +1,6 @@
 from Train import Train
+from Reservation import Reservation
+
 from data.ReservationReader import ReservationReader
 
 class TourOrganizer:
@@ -15,3 +17,12 @@ class TourOrganizer:
 
     def organize(self):
         pass
+
+    def leaders_data(self):
+        '''...'''
+
+        data = {}
+        for reservation in self._reservations:
+            lead = reservation.get_lead_passenger()
+            data[lead.get_name()] = lead.get_id()
+        return data

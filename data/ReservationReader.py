@@ -9,6 +9,8 @@ class ReservationReader:
 
     @staticmethod
     def read_reservations():
+        '''...'''
+
         reservations = [] # Stores reservations
         with open('./data/reservations.csv') as f:
             reader = [r for r in csv.reader(f) if len(r) != 0]
