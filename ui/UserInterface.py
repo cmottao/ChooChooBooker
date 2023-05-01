@@ -26,7 +26,7 @@ class UserInterface:
             if user == 'admin' and password == 'password':
                 self._is_admin = True
                 print('Logged in as administrator.')
-            elif user in self._leaders_data and password == self._leaders_data[user]:
+            elif user in self._leaders_data and password == str(self._leaders_data[user]):
                 self._is_lead = True
                 print('Logged in as lead passenger.')
             else:
