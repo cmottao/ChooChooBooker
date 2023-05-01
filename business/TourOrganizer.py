@@ -12,13 +12,13 @@ class TourOrganizer:
         self._trains = []
 
     # Methods
-    def sort_reservations(self):
-        pass
+    # def sort_reservations(self):
+    #     pass
 
     def organize(self):
         pass
 
-    def leaders_data(self):
+    def leaders_data(self): # Esto creo que deberia ir mejor en el constructor
         '''...'''
 
         data = {}

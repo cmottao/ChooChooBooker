@@ -28,3 +28,10 @@ class Reservation:
     
     def get_number_of_passengers(self):
         return self._number_of_passengers
+    
+    # Setter methods
+    def assign_train(self, train):
+        self._assigned_train = train
+    
+    def assign_wagon(self, wagon):
+        self.assign_wagon = wagon
