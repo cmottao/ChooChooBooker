@@ -1,5 +1,5 @@
-from Train import Train
-from Reservation import Reservation
+from .Train import Train
+from .Reservation import Reservation
 
 from data.ReservationReader import ReservationReader
 

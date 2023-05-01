@@ -1,4 +1,4 @@
-from Wagon import Wagon
+from .Wagon import Wagon
 
 # Capacities of the Train
 NUMBER_OF_WAGONS = 6

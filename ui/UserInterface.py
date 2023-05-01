@@ -17,18 +17,20 @@ class UserInterface:
         '''...'''
 
         print('Welcome!')
-        user = input("Enter username: ")
-        password = input("Enter password: ")
-        self._user = user
 
-        if user == 'admin' and password == 'password':
-            self._is_admin = True
-            print('Logged in as administrator.')
-        elif user in self._leaders_data and password == self._leaders_data[user]:
-            self._is_lead = True
-            print('Logged in as lead passenger.')
-        else:
-            print('Please check the username and password.')
+        while not(self._is_admin or self._is_lead):
+            user = input("Enter username: ")
+            password = input("Enter password: ")
+            self._user = user
+
+            if user == 'admin' and password == 'password':
+                self._is_admin = True
+                print('Logged in as administrator.')
+            elif user in self._leaders_data and password == self._leaders_data[user]:
+                self._is_lead = True
+                print('Logged in as lead passenger.')
+            else:
+                print('Please check the username and password.')
 
     def show_menu(self):
         '''...'''
@@ -48,13 +50,19 @@ class UserInterface:
             option = input('>>> ')
 
             if option == '1':
-                if self.is_admin:
-                    for reservation in self._reservations:
+                if self._is_admin:
+                    for reservation in '12345': # Test
                         print(reservation)
+                    # for reservation in self._reservations:
+                        # print(reservation)}
+                    input('Press enter to continue')
+                    continue
                 else:
-                    for reservation in self._reservations:
-                        if reservation.get_lead_passenger().get_name() == self._user:
-                            print(reservation)
+                    print('Here is your reservation :v') # Test
+                    # for reservation in self._reservations:
+                    #     if reservation.get_lead_passenger().get_name() == self._user:
+                    #         print(reservation)
+                    input('Press enter to continue')
             elif option == '2':
                 break
             else:
