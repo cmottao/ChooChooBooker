@@ -5,12 +5,11 @@ class UserInterface:
 
     # Constructor method
     def __init__(self):
-        self._is_admin = False
         self._is_lead = False
-        self._user = None
+        self._id = None
         self._tour_organizer = TourOrganizer()
-        self._reservations = self._tour_organizer.organize()
-        self._leaders_data = self._tour_organizer.leaders_data()
+        self._tour_organizer.organize()
+        self._leaders_data = self._tour_organizer.get_leaders_data()
 
     # Methods
     def login(self):
@@ -18,27 +17,18 @@ class UserInterface:
 
         print('Welcome!')
 
-        while not(self._is_admin or self._is_lead):
-            user = input("Enter username: ")
-            password = input("Enter password: ")
-            self._user = user
+        while not self._is_lead:
+            id = input("Enter id: ")
+            self._id = id
 
-            if user == 'admin' and password == 'password':
-                self._is_admin = True
-                print('Logged in as administrator.')
-            elif user in self._leaders_data and password == str(self._leaders_data[user]):
+            if int(id) in self._leaders_data:
                 self._is_lead = True
-                print('Logged in as lead passenger.')
-            else:
-                print('Please check the username and password.')
+                print('Logged in!')
 
     def show_menu(self):
         '''...'''
 
-        if self._is_admin:
-            print('1 -> Show all reservations \n2 -> Exit')
-        else:
-            print('1 -> Show my reservation \n2 -> Exit')
+        print('1 -> My reservation \n2 -> Exit')
 
     def run(self):
         '''...'''
@@ -50,19 +40,11 @@ class UserInterface:
             option = input('>>> ')
 
             if option == '1':
-                if self._is_admin:
-                    for reservation in '12345': # Test
+                for reservation in self._tour_organizer.get_reservations():
+                    if reservation.get_lead_passenger().get_id() == int(self._id):
                         print(reservation)
-                    # for reservation in self._reservations:
-                        # print(reservation)}
-                    input('Press enter to continue')
-                    continue
-                else:
-                    print('Here is your reservation :v') # Test
-                    # for reservation in self._reservations:
-                    #     if reservation.get_lead_passenger().get_name() == self._user:
-                    #         print(reservation)
-                    input('Press enter to continue')
+                input('Press enter to continue')
+                continue 
             elif option == '2':
                 break
             else:

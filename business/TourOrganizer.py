@@ -12,7 +12,6 @@ class TourOrganizer:
         self._reservations.sort(
             key = lambda n: n.get_number_of_passengers()
         )
-        print(len(self._reservations))
         self._trains = []
 
     def organize(self):
@@ -22,7 +21,6 @@ class TourOrganizer:
         self._trains.append(Train(1))
         
         while i < len(self._reservations):
-            print(i)
             reservation = self._reservations[i]
             current_train = self._trains[n_train - 1]
             current_wagon = current_train.get_wagons()[n_wagon - 1]
@@ -48,11 +46,11 @@ class TourOrganizer:
     def get_reservations(self):
         return self._reservations
                 
-    def leaders_data(self): # Esto creo que deberia ir mejor en el constructor
+    def get_leaders_data(self): # Esto creo que deberia ir mejor en el constructor
         '''...'''
 
         data = {}
         for reservation in self._reservations:
             lead = reservation.get_lead_passenger()
-            data[lead.get_name()] = lead.get_id()
+            data[lead.get_id()] = lead.get_name()
         return data
