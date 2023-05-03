@@ -1,7 +1,7 @@
 from .Train import Train
 from .Reservation import Reservation
 
-from data.ReservationReader import ReservationReader
+from data_access_layer.ReservationReader import ReservationReader
 
 class TourOrganizer:
     '''Class for organize the tour.'''
