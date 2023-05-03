@@ -11,7 +11,7 @@ class Reservation:
     
     # Representation method
     def __repr__(self):
-        return f'reservation of {self._number_of_passengers} made by: {self._lead_passenger.get_name()}'
+        return f'reservation of {self._number_of_passengers} made by: {self._lead_passenger.get_name()}, Train: {self._assigned_train}, Wagon {self._assigned_wagon}'
     
     # Getters methods
     def get_lead_passenger(self):
@@ -34,4 +34,4 @@ class Reservation:
         self._assigned_train = train
     
     def assign_wagon(self, wagon):
-        self.assign_wagon = wagon
+        self._assigned_wagon = wagon

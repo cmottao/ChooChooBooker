@@ -8,6 +8,9 @@ class Train:
     def __init__(self, number):
         self._number = number
         self._wagons = [Wagon(i) for i in range(1, Train._NUMBER_OF_WAGONS + 1)]
+    
+    def __repr__(self):
+        return f'N {self._number}'
 
     # Getters methods
     def get_number(self):

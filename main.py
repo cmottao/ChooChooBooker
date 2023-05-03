@@ -1,10 +1,8 @@
-# from data.ReservationReader import ReservationReader
-from ui.UserInterface import UserInterface
-
-# if __name__ == '__main__':
-#     for r in ReservationReader.ReservationReader.read_reservations():
-#         print(r)
+from business.TourOrganizer import TourOrganizer
 
 if __name__ == '__main__':
-    xd = UserInterface()
-    xd.run()
+    t = TourOrganizer()
+    t.organize()
+
+    for r in t.get_reservations():
+        print(r)
