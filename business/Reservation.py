@@ -1,5 +1,5 @@
 class Reservation:
-    '''Represents an object of type Reservation.'''
+    '''Represents an object of type Reservation.''' 
 
     # Constructor method
     def __init__(self, lead_passenger, passengers, assigned_train = None, assigned_wagon = None):
@@ -29,7 +29,7 @@ class Reservation:
     def get_number_of_passengers(self):
         return self._number_of_passengers
     
-    # Setter methods
+    # Setters methods
     def assign_train(self, train):
         self._assigned_train = train
     

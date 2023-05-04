@@ -1,7 +1,7 @@
 from .Passenger import Passenger
 
 class LeadPassenger(Passenger):
-    '''Represents an object of type Lead Passenger. Inherits from Passenger'''
+    '''Represents an object of type Lead Passenger. Inherits from Passenger.'''
 
     # Constructor method
     def __init__(self, name, id, phone, email):

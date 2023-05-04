@@ -1,15 +1,15 @@
 import csv
 
+from business.LeadPassenger import LeadPassenger
 from business.Passenger import Passenger
 from business.Reservation import Reservation
-from business.LeadPassenger import LeadPassenger
 
 class ReservationReader:
     '''Class for reading the reservations file.'''
 
     @staticmethod
     def read_reservations():
-        '''...'''
+        '''Reads reservations data from CSV file and returns a list of the data.'''
 
         reservations = [] # Stores reservations
         with open('./data/reservations.csv') as f:

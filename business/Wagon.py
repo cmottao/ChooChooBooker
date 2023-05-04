@@ -1,12 +1,15 @@
 class Wagon:
     '''Represents an object of type Wagon.'''
+
+    # Static attributes
     CAPACITY = 50
+
     # Constructor method
     def __init__(self, number):
         self._number = number
         self._capacity = Wagon.CAPACITY
-       # self._passengers = []
-    
+
+    # Representation method
     def __repr__(self):
         return  f'N {self._number}'
 
@@ -18,6 +21,5 @@ class Wagon:
         return self._capacity
 
     # Methods
-    def assign_passengers(self, passengers):
-        #self._passengers.extend(passengers)
-        self._capacity -= len(passengers)
+    def assign_passengers(self, reservation):
+        self._capacity -= reservation.get_number_of_passengers()

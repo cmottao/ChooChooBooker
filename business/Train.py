@@ -2,6 +2,8 @@ from .Wagon import Wagon
 
 class Train:
     '''Represents an object of type Train.'''
+
+    # Static attributes
     _NUMBER_OF_WAGONS = 6
 
     # Constructor method
@@ -9,6 +11,7 @@ class Train:
         self._number = number
         self._wagons = [Wagon(i) for i in range(1, Train._NUMBER_OF_WAGONS + 1)]
     
+    # Representation method
     def __repr__(self):
         return f'N {self._number}'
 

@@ -1,5 +1,5 @@
 class Passenger:
-    '''Represents an object of type Passenger.'''
+    '''Represents an object of type Passenger.''' 
 
     # Constructor method
     def __init__(self, name):

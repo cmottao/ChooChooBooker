@@ -1,3 +1,5 @@
+import os
+
 from business.TourOrganizer import TourOrganizer
 
 class UserInterface:
@@ -13,7 +15,7 @@ class UserInterface:
 
     # Methods
     def login(self):
-        '''...'''
+        '''Allows the user to log in to the system using their id.'''
 
         print('Welcome!')
 
@@ -24,14 +26,19 @@ class UserInterface:
             if int(id) in self._leaders_data:
                 self._is_lead = True
                 print('Logged in!')
+            else:
+                print('No reservations found for the entered ID.')
+            os.system('pause')
+            os.system('cls')
 
     def show_menu(self):
-        '''...'''
+        '''Displays the main menu of the system.'''
 
-        print('1 -> My reservation \n2 -> Exit')
+        os.system('cls')
+        print('Menu \n \n1 -> View my reservation \n2 -> Exit')
 
     def run(self):
-        '''...'''
+        '''Runs the main loop of the system.'''
         
         self.login()
 
@@ -40,11 +47,8 @@ class UserInterface:
             option = input('>>> ')
 
             if option == '1':
-                for reservation in self._tour_organizer.get_reservations():
-                    if reservation.get_lead_passenger().get_id() == int(self._id):
-                        print(reservation)
-                input('Press enter to continue')
-                continue 
+                print([reservation for reservation in self._tour_organizer.get_reservations() if reservation.get_lead_passenger().get_id() == int(self._id)])
+                os.system('pause')
             elif option == '2':
                 break
             else:
