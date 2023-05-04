@@ -1,6 +1,6 @@
 # ChooChooBooker
 
-ChooChooBooker is a reservation management program for a travel agency that specializes in train travel.
+ChooChooBooker is a simple reservation management program for a travel agency that specializes in train travel.
 
 Made by: [Cristian Motta](https://github.com/cmottao), [Sebastian Andrade](https://github.com/Sgewux)
 
