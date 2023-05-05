@@ -12,6 +12,13 @@ class UserInterface:
         self._tour_organizer = TourOrganizer()
         self._tour_organizer.organize()
         self._leaders_data = self._tour_organizer.get_leaders_data()
+    
+    def rewrite_setup(self, data):
+        '''Method for rewriting the setup file uwu'''
+        with open('./data/setup.txt', 'w') as f:
+            for i in data:
+                f.write(data[i])
+
 
     # Methods
     def login(self):

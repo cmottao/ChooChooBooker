@@ -1,12 +1,14 @@
 from data_access_layer.ReservationReader import ReservationReader
 
 from .Train import Train
+from .exceptions.UnableToBook import UnableToBook
 
 class TourOrganizer:
     '''Class for organize the tour.'''
 
     # Constructor method
     def __init__(self):
+        Train.setup_trains()
         self._reservations = ReservationReader.read_reservations()
         self._reservations.sort(key = lambda n: n.get_number_of_passengers())
         self._trains = [Train(1)]
@@ -36,7 +38,9 @@ class TourOrganizer:
                 i += 1
 
             else: # No enough space on current wagon
-                if n_wagon < current_train.get_number_of_wagons():
+                if current_wagon.is_empty(): #if wagon was empty that means that the reservation is too large to fit the wagon, so we are unable to book it
+                    raise UnableToBook(self._reservations[i])
+                elif n_wagon < current_train.get_number_of_wagons():
                     n_wagon += 1
                 elif n_wagon < current_train.get_number_of_wagons():
                     n_train += 1
