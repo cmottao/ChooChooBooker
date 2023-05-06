@@ -4,9 +4,10 @@ from business.LeadPassenger import LeadPassenger
 from business.Passenger import Passenger
 from business.Reservation import Reservation
 
-class ReservationReader:
-    '''Class for reading the reservations file.'''
+class FileManager:
+    '''Class for read and write files on disk.'''
 
+    # Methods
     @staticmethod
     def read_reservations():
         '''Reads reservations data from CSV file and returns a list of the data.'''
@@ -26,3 +27,23 @@ class ReservationReader:
             reservations.append(Reservation(lead_passenger, passengers))
         
         return reservations
+    
+    
+    @staticmethod
+    def read_setup():
+        '''Reads the train setup from TXT file and returns a list of the data.'''
+
+        setup = []
+        with open('./data/setup.txt', 'r') as f:
+            data = (f.read()).split(' ')
+            setup.append(int(data[0]))
+            setup.append(sorted(int(i) for i in data[1:]))
+
+        return setup
+    
+    @staticmethod
+    def rewrite_setup(data):
+        '''Method for rewriting the setup Train.'''
+        
+        with open('./data/setup.txt', 'w') as f:
+            f.write(data)

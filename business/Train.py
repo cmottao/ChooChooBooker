@@ -1,3 +1,5 @@
+from data_access_layer.FileManager import FileManager
+
 from .Wagon import Wagon
 
 class Train:
@@ -21,19 +23,18 @@ class Train:
         return self._number
     
     def get_number_of_wagons(self):
-        return Train._NUMBER_OF_WAGONS  
+        return self._NUMBER_OF_WAGONS  
     
     def get_wagons(self):
         return self._wagons
     
+    # Methods
     @classmethod
     def setup_trains(cls):
-        '''Reads setup.txt and assign the static variables values according to that file
-           This method must be executed before instaciating a train for first time, or when admin has updated
-           the setup values
-        '''
-        with open('./data/setup.txt', 'r') as f:
-            data = (f.read()).split(' ')
-            cls._NUMBER_OF_WAGONS = int(data[0])
-            cls._WAGON_CAPACITIES = sorted(int(i) for i in data[1:])
-            
+        '''Assigns the static variables values according to setup file. This method must be executed before 
+           instaciating a train for first time, or when admin has updated the setup values.'''
+
+        setup = FileManager.read_setup()
+
+        cls._NUMBER_OF_WAGONS = setup[0]
+        cls._WAGON_CAPACITIES = setup[1]

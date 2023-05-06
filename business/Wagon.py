@@ -1,13 +1,11 @@
 class Wagon:
     '''Represents an object of type Wagon.'''
 
-    # Static attributes
-
     # Constructor method
-    def __init__(self, number, capacity):
+    def __init__(self, number, initial_capacity):
         self._number = number
-        self._intial_capacity = capacity
-        self._capacity = capacity
+        self._initial_capacity = initial_capacity
+        self._capacity = initial_capacity
 
     # Representation method
     def __repr__(self):
@@ -20,9 +18,9 @@ class Wagon:
     def get_capacity(self):
         return self._capacity
 
-    def is_empty(self):
-        return self._intial_capacity == self._capacity
-
     # Methods
+    def is_empty(self): 
+        return self._initial_capacity == self._capacity
+    
     def assign_passengers(self, reservation):
         self._capacity -= reservation.get_number_of_passengers()
