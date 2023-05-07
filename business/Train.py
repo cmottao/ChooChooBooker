@@ -20,7 +20,7 @@ class Train:
         return f'N {self._number}'
 
     # Getters methods
-    def get_number(self):
+    def get_number(self): 
         return self._number
     
     def get_number_of_wagons(self):

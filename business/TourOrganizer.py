@@ -39,7 +39,7 @@ class TourOrganizer:
             data[str(lead.get_id())] = lead.get_name()
         return data
     
-    def _update_counters(self, current_train_number, current_wagon_number, current_train, current_wagon, i):
+    def _update_counters(self, current_train_number, current_wagon_number, current_train):
         '''Updates train and wagon counters.'''
 
         if current_wagon_number < current_train.get_number_of_wagons():
@@ -64,8 +64,8 @@ class TourOrganizer:
 
             if self._reservations[i].get_number_of_passengers() > current_train.get_max_capacity():
                 self._unbooked_reservations.append(self._reservations[i])
-                i+=1
-                continue #Skips the reservation
+                i += 1
+                continue # Skips the reservation
 
             elif self._reservations[i].get_number_of_passengers() <= current_wagon.get_capacity(): # If there is still space in wagon
                 current_wagon.assign_passengers(self._reservations[i])
@@ -76,14 +76,15 @@ class TourOrganizer:
                 i += 1
 
             else: # No enough space on current wagon
-                current_train_number, current_wagon_number = self._update_counters(current_train_number, current_wagon_number, current_train, current_wagon, i)
+                current_train_number, current_wagon_number = self._update_counters(current_train_number, current_wagon_number, current_train)
                 continue
 
     def reorganize(self, new_setup):
-        ''''''
+        '''Reorganizes with the new train setup.'''
 
         FileManager.rewrite_setup(new_setup)
         Train.setup_trains()
+        self._reservations = FileManager.read_reservations()
         self._trains = [Train(1)]
         self._unbooked_reservations = []
         self.organize()

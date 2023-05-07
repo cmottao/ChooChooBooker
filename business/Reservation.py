@@ -27,7 +27,7 @@ class Reservation:
         return self._assigned_train
     
     def get_assigned_wagon(self):
-        return self._assigned_wagon
+        return self._assigned_wagon 
     
     def get_number_of_passengers(self):
         return self._number_of_passengers

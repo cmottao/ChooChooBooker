@@ -3,7 +3,7 @@ class Passenger:
 
     # Constructor method
     def __init__(self, name):
-        self._name = name
+        self._name = name 
 
     # Getters methods
     def get_name(self):

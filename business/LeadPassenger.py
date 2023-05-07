@@ -15,7 +15,7 @@ class LeadPassenger(Passenger):
         return self._id
 
     def get_phone(self):
-        return self._phone
+        return self._phone 
 
     def get_email(self):
         return self._email

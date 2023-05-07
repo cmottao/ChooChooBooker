@@ -36,11 +36,11 @@ class UserInterface:
         os.system('cls')
         unbooked = self._tour_organizer.get_unbooked_reservations()
         if unbooked:
-            print(f'======= {len(unbooked)} UNBOOKED RESERVATIONS, PLEASE MANAGE TRAIN CAPACITIES ======')
+            print(f'{len(unbooked)} UNBOOKED RESERVATIONS, PLEASE MANAGE TRAIN CAPACITIES')
         for reservation in unbooked:
             print(reservation)
 
-        print('=================================')
+        print('\nBOOKED RESERVATIONS')
         for reservation in self._tour_organizer.get_reservations():
             if reservation not in unbooked:
                 print(reservation)

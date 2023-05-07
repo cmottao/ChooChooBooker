@@ -29,7 +29,6 @@ class FileManager:
         
         return reservations
     
-    
     @staticmethod
     def read_setup():
         '''Reads the train setup from TXT file and returns a list of the data.'''

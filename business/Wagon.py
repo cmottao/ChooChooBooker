@@ -13,7 +13,7 @@ class Wagon:
 
     # Getters methods
     def get_number(self):
-        return self._number
+        return self._number 
     
     def get_capacity(self):
         return self._capacity
