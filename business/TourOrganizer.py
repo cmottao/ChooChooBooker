@@ -70,16 +70,16 @@ class TourOrganizer:
                 self._unbooked_reservations.append(self._reservations[j])
                 self._reservations[j].unbookable()
 
-    def select_reservation(self, reservations, wagon_capacity):
+    def select_reservation(self, current_wagon):
         '''Selects the optimal reservation for a given wagon capacity.'''
 
         reservation_selected = None
         choose = None
 
-        for j in range(len(reservations)):
-            if reservations[j].get_number_of_passengers() <= wagon_capacity and (not reservations[j].is_assigned()):
-                if reservation_selected is None or reservations[j].get_number_of_passengers() > reservation_selected.get_number_of_passengers():
-                    reservation_selected = reservations[j]
+        for j in range(len(self._reservations)):
+            if self._reservations[j].get_number_of_passengers() <= current_wagon.get_capacity() and (not self._reservations[j].is_assigned()):
+                if reservation_selected is None or self._reservations[j].get_number_of_passengers() > reservation_selected.get_number_of_passengers():
+                    reservation_selected = self._reservations[j]
                     choose = j
 
         return choose
@@ -97,7 +97,7 @@ class TourOrganizer:
             current_wagon = current_train.get_wagons()[current_wagon_number - 1]
 
             # Select the reservation according to the optimization
-            reservation_selected = self.select_reservation(self._reservations, current_wagon.get_capacity()) 
+            reservation_selected = self.select_reservation(current_wagon) 
 
             if reservation_selected is not None: # If finds a reservation
                 current_wagon.assign_passengers(self._reservations[reservation_selected])
