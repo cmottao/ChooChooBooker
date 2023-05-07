@@ -12,7 +12,7 @@ class Reservation:
     # Representation method
     def __repr__(self):
         if self._assigned_train and self._assigned_wagon:
-            return f'Reservation of {self._number_of_passengers} made by: {self._lead_passenger.get_name()}, Train: {self._assigned_train}, Wagon {self._assigned_wagon}'
+            return f'Reservation of {self._number_of_passengers} made by: {self._lead_passenger.get_name()}, Train: {self._assigned_train}, Wagon: {self._assigned_wagon}'
         else:
             return f'Reservation of {self._number_of_passengers} made by: {self._lead_passenger.get_name()}, could not be booked because it exceeds max train capacity.'
     
@@ -38,3 +38,15 @@ class Reservation:
     
     def assign_wagon(self, wagon):
         self._assigned_wagon = wagon
+
+    # Methods
+    def is_assigned(self):
+        '''Returns if the reservation is assigned or not.'''
+        
+        return self._assigned_train != None and self._assigned_wagon != None
+    
+    def unbookable(self):
+        '''Marks the reservation as unbookable.'''
+
+        self._assigned_train = False
+        self._assigned_wagon = False

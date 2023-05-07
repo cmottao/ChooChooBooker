@@ -38,7 +38,9 @@ class FileManager:
             try:
                 data = (f.read()).split(' ')
                 setup.append(int(data[0]))
-                setup.append(sorted(int(i) for i in data[1:]))
+                wagons = [int(i) for i in data[1:]]
+                wagons.sort(reverse=True)
+                setup.append(wagons)
             except ValueError:
                 raise InvalidSetupException(data)
 

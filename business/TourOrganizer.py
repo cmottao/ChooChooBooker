@@ -9,9 +9,9 @@ class TourOrganizer:
     def __init__(self):
         Train.setup_trains()
         self._reservations = FileManager.read_reservations()
+        self._reservations.sort(key = lambda n: n.get_number_of_passengers(), reverse=True)
         self._unbooked_reservations = []
-        self._reservations.sort(key = lambda n: n.get_number_of_passengers())
-        self._leaders_data = self._create_leaders_data()
+        self._leaders_data = self.create_leaders_data()
         self._trains = [Train(1)]
 
     # Getters methods
@@ -30,16 +30,26 @@ class TourOrganizer:
         return self._leaders_data
 
     # Methods
-    def _create_leaders_data(self):
+    def all_reservations_assigned(self):
+        '''Checks whether all reservations have been assigned to a train and a wagon.'''
+
+        for reservation in self._reservations:
+            if not reservation.is_assigned():
+                return False
+            
+        return True
+
+    def create_leaders_data(self):
         '''Creates a dictionary with the id and the name of the reservation leaders.'''
 
         data = {}
         for reservation in self._reservations:
             lead = reservation.get_lead_passenger()
             data[str(lead.get_id())] = lead.get_name()
+
         return data
     
-    def _update_counters(self, current_train_number, current_wagon_number, current_train):
+    def update_counters(self, current_train_number, current_wagon_number, current_train):
         '''Updates train and wagon counters.'''
 
         if current_wagon_number < current_train.get_number_of_wagons():
@@ -51,32 +61,51 @@ class TourOrganizer:
     
         return current_train_number, current_wagon_number
     
+    def unbookable_reservations(self):
+        '''Marks reservations that cannot be booked due to exceeding the maximum capacity of any train 
+           in the system as unbookable, and adds them to a list of unbooked reservations.'''
+
+        for j in range(len(self._reservations)):
+            if self._reservations[j].get_number_of_passengers() > self._trains[0].get_max_capacity():
+                self._unbooked_reservations.append(self._reservations[j])
+                self._reservations[j].unbookable()
+
+    def select_reservation(self, reservations, wagon_capacity):
+        '''Selects the optimal reservation for a given wagon capacity.'''
+
+        reservation_selected = None
+        choose = None
+
+        for j in range(len(reservations)):
+            if reservations[j].get_number_of_passengers() <= wagon_capacity and (not reservations[j].is_assigned()):
+                if reservation_selected is None or reservations[j].get_number_of_passengers() > reservation_selected.get_number_of_passengers():
+                    reservation_selected = reservations[j]
+                    choose = j
+
+        return choose
+
     def organize(self):
         '''Assigns reservations to wagons and trains in an optimal way.'''
 
-        i = 0 # iterator variable for reservations
         current_train_number = 1
         current_wagon_number = 1
+
+        self.unbookable_reservations() # Mark unbookable reservations
         
-        while i < len(self._reservations):
+        while not self.all_reservations_assigned(): # If there is any unassigned reservation
             current_train = self._trains[current_train_number - 1]
             current_wagon = current_train.get_wagons()[current_wagon_number - 1]
 
-            if self._reservations[i].get_number_of_passengers() > current_train.get_max_capacity():
-                self._unbooked_reservations.append(self._reservations[i])
-                i += 1
-                continue # Skips the reservation
+            # Select the reservation according to the optimization
+            reservation_selected = self.select_reservation(self._reservations, current_wagon.get_capacity()) 
 
-            elif self._reservations[i].get_number_of_passengers() <= current_wagon.get_capacity(): # If there is still space in wagon
-                current_wagon.assign_passengers(self._reservations[i])
-                
-                # Updating reservation variables
-                self._reservations[i].assign_train(current_train)
-                self._reservations[i].assign_wagon(current_wagon)
-                i += 1
+            if reservation_selected is not None: # If finds a reservation
+                current_wagon.assign_passengers(self._reservations[reservation_selected])
+                self._reservations[reservation_selected].assign_train(current_train)
+                self._reservations[reservation_selected].assign_wagon(current_wagon)
 
             else: # No enough space on current wagon
-                current_train_number, current_wagon_number = self._update_counters(current_train_number, current_wagon_number, current_train)
+                current_train_number, current_wagon_number = self.update_counters(current_train_number, current_wagon_number, current_train)
                 continue
 
     def reorganize(self, new_setup):
@@ -85,6 +114,7 @@ class TourOrganizer:
         FileManager.rewrite_setup(new_setup)
         Train.setup_trains()
         self._reservations = FileManager.read_reservations()
+        self._reservations.sort(key = lambda n: n.get_number_of_passengers(), reverse=True)
         self._trains = [Train(1)]
         self._unbooked_reservations = []
         self.organize()
