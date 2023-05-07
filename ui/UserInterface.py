@@ -1,6 +1,8 @@
 import os
+import time
 
 from business.TourOrganizer import TourOrganizer
+from business.exceptions.InvalidSetupException import InvalidSetupException
 
 class UserInterface:
     '''Class for user interface management.'''
@@ -32,8 +34,16 @@ class UserInterface:
         '''Displays all reservations.'''
 
         os.system('cls')
-        for reservation in self._tour_organizer.get_reservations():
+        unbooked = self._tour_organizer.get_unbooked_reservations()
+        if unbooked:
+            print(f'======= {len(unbooked)} UNBOOKED RESERVATIONS, PLEASE MANAGE TRAIN CAPACITIES ======')
+        for reservation in unbooked:
             print(reservation)
+
+        print('=================================')
+        for reservation in self._tour_organizer.get_reservations():
+            if reservation not in unbooked:
+                print(reservation)
         os.system('pause')
     
     def resetup_train(self):
@@ -42,8 +52,12 @@ class UserInterface:
         os.system('cls')
         print('Enter the new setup train')
         new_setup = input('>>> ')
-        self._tour_organizer.reorganize(new_setup)
-        self.show_message('Updated train configuration!')
+        try:
+            self._tour_organizer.reorganize(new_setup)
+        except InvalidSetupException as e:
+            self.show_message(e)
+        else:
+            self.show_message('Updated train configuration!')
     
     def show_menu_login(self):
         '''Displays login menu.'''

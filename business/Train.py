@@ -13,6 +13,7 @@ class Train:
     def __init__(self, number):
         self._number = number
         self._wagons = [Wagon(i, Train._WAGON_CAPACITIES[i-1]) for i in range(1, Train._NUMBER_OF_WAGONS + 1)]
+        self._max_capacity = max(Train._WAGON_CAPACITIES)
     
     # Representation method
     def __repr__(self):
@@ -27,6 +28,9 @@ class Train:
     
     def get_wagons(self):
         return self._wagons
+    
+    def get_max_capacity(self):
+        return self._max_capacity
     
     # Methods
     @classmethod

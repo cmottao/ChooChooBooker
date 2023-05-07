@@ -11,7 +11,10 @@ class Reservation:
     
     # Representation method
     def __repr__(self):
-        return f'reservation of {self._number_of_passengers} made by: {self._lead_passenger.get_name()}, Train: {self._assigned_train}, Wagon {self._assigned_wagon}'
+        if self._assigned_train and self._assigned_wagon:
+            return f'Reservation of {self._number_of_passengers} made by: {self._lead_passenger.get_name()}, Train: {self._assigned_train}, Wagon {self._assigned_wagon}'
+        else:
+            return f'Reservation of {self._number_of_passengers} made by: {self._lead_passenger.get_name()}, could not be booked because it exceeds max train capacity.'
     
     # Getters methods
     def get_lead_passenger(self):

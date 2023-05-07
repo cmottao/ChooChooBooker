@@ -3,6 +3,7 @@ import csv
 from business.LeadPassenger import LeadPassenger
 from business.Passenger import Passenger
 from business.Reservation import Reservation
+from business.exceptions.InvalidSetupException import InvalidSetupException
 
 class FileManager:
     '''Class for read and write files on disk.'''
@@ -35,9 +36,12 @@ class FileManager:
 
         setup = []
         with open('./data/setup.txt', 'r') as f:
-            data = (f.read()).split(' ')
-            setup.append(int(data[0]))
-            setup.append(sorted(int(i) for i in data[1:]))
+            try:
+                data = (f.read()).split(' ')
+                setup.append(int(data[0]))
+                setup.append(sorted(int(i) for i in data[1:]))
+            except ValueError:
+                raise InvalidSetupException(data)
 
         return setup
     
