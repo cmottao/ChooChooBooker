@@ -1,6 +1,6 @@
-from data_access_layer.FileManager import FileManager
+from business.FileManager import FileManager
 
-from .Train import Train
+from data.Train import Train
 
 class TourOrganizer:
     '''Class for organize the tour.'''

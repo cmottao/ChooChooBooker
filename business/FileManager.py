@@ -1,8 +1,8 @@
 import csv
 
-from business.LeadPassenger import LeadPassenger
-from business.Passenger import Passenger
-from business.Reservation import Reservation
+from data.LeadPassenger import LeadPassenger
+from data.Passenger import Passenger
+from data.Reservation import Reservation
 from business.exceptions.InvalidSetupException import InvalidSetupException
 
 class FileManager:
@@ -14,7 +14,7 @@ class FileManager:
         '''Reads reservations data from CSV file and returns a list of the data.'''
 
         reservations = [] # Stores reservations
-        with open('./data/reservations.csv') as f:
+        with open('./resources/reservations.csv') as f:
             reader = [r for r in csv.reader(f) if len(r) != 0]
 
         for i in range(0, len(reader) - 1, 2):
@@ -34,7 +34,7 @@ class FileManager:
         '''Reads the train setup from TXT file and returns a list of the data.'''
 
         setup = []
-        with open('./data/setup.txt', 'r') as f:
+        with open('./resources/setup.txt', 'r') as f:
             try:
                 data = (f.read()).split(' ')
                 setup.append(int(data[0]))
